@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca5yka8t45xqs"]
+
+[ext_resource type="Script" uid="uid://ctwylbq1qucg" path="res://world.gd" id="1_kq4et"]
+[ext_resource type="PackedScene" uid="uid://dqeyrt7b8tjwi" path="res://player/player.tscn" id="2_tkp1m"]
+[ext_resource type="PackedScene" uid="uid://g4qrq6oy2q2p" path="res://enemy/enemy.tscn" id="3_eqedp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_km7kk"]
+size = Vector2(33, 673)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jere5"]
+size = Vector2(33, 1192)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_kq4et")
+
+[node name="Player" parent="." instance=ExtResource("2_tkp1m")]
+position = Vector2(51, 39)
+scale = Vector2(3.265, 3.265)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(6.5, 326.5)
+shape = SubResource("RectangleShape2D_km7kk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1145, 327)
+shape = SubResource("RectangleShape2D_km7kk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(567, -2.99999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_jere5")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(566, 658)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_jere5")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -31.0
+offset_top = 641.0
+offset_right = 1179.0
+offset_bottom = 677.0
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = -35.0
+offset_top = -21.0
+offset_right = 1175.0
+offset_bottom = 15.0
+
+[node name="Panel3" type="Panel" parent="."]
+offset_left = -11.0
+offset_top = -22.0
+offset_right = 23.0
+offset_bottom = 670.0
+
+[node name="Panel4" type="Panel" parent="."]
+offset_left = 1128.0
+offset_top = -21.0
+offset_right = 1162.0
+offset_bottom = 671.0
+
+[node name="Enemy" parent="." instance=ExtResource("3_eqedp")]
+position = Vector2(376, 124)
+scale = Vector2(2.5, 2.5)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_eqedp")]
+position = Vector2(251, 162)
+scale = Vector2(2.5, 2.5)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_eqedp")]
+position = Vector2(201, 236)
+scale = Vector2(2.5, 2.5)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_eqedp")]
+position = Vector2(342, 220)
+scale = Vector2(2.5, 2.5)
+
+[node name="Enemy5" parent="." instance=ExtResource("3_eqedp")]
+position = Vector2(687, 237)
+scale = Vector2(2.5, 2.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LabelCurLvl" type="Label" parent="CanvasLayer"]
+offset_right = 153.0
+offset_bottom = 49.0
+text = "Displayed Level: 
+"
+
+[node name="LabelLvl" type="Label" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 26.0
+offset_right = 122.0
+offset_bottom = 61.0
+text = "True Level: "

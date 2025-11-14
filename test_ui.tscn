@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://chpbqa77modi2"]
+
+[node name="TestUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelCurrLvl" type="Label" parent="."]
+layout_mode = 0
+offset_right = 187.0
+offset_bottom = 45.0
+text = "Displayed Level: "
+
+[node name="LabelLvl" type="Label" parent="."]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 209.0
+offset_bottom = 90.0
+text = "True Level:"
