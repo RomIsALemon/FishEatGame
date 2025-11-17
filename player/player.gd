@@ -6,13 +6,14 @@ var mouse_position = null
 var level = 5 # true level
 var currentlevel = level # displayed level and temporary level
 var can_use_powerup = true
+var scaleSpeed = 5
 
 @onready var level_label = get_node("Label")
 @onready var camera = get_node("Camera2D")
 
 func _physics_process(delta):
-	scale.x = 1 + currentlevel/3.5
-	scale.y = 1 + currentlevel/3.5
+	var target_scale := Vector2(1 + currentlevel/3.5, 1 + currentlevel/3.5)
+	scale = scale.lerp(target_scale, scaleSpeed * delta)
 	# work on camera zooming out depending on fish scale
 	camera.zoom.x = ((camera.get_viewport().size.x/100) / scale.x)
 	camera.zoom.y = ((camera.get_viewport().size.y/54) / scale.y)
