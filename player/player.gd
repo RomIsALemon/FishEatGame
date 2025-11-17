@@ -7,6 +7,7 @@ var level = 5 # true level
 var currentlevel = level # displayed level and temporary level
 var can_use_powerup = true
 var scaleSpeed = 5
+var toggleMove = true
 
 @onready var level_label = get_node("Label")
 @onready var camera = get_node("Camera2D")
@@ -24,7 +25,10 @@ func _physics_process(delta):
 	self.look_at(mouse_position)
 	if Input.is_action_just_pressed("ui_accept") and can_use_powerup and level >= 10:
 		dash()
-	move_and_slide()
+	if Input.is_action_just_pressed("Toggle Movement"):
+		toggleMove = not toggleMove
+	if toggleMove == true:
+		move_and_slide()
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().get_class() == "CharacterBody2D":

@@ -16,7 +16,8 @@ func _ready():
 	enemies[2].level = 10
 	enemies[3].level = 1
 	enemies[4].level = 25
-	
+	enemies.append(get_node("Enemy_Moving"))
+	enemies[5].level = 20
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

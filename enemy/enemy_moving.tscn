@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ncklgdw4cpq6"]
+
+[ext_resource type="PackedScene" uid="uid://g4qrq6oy2q2p" path="res://enemy/enemy.tscn" id="1_2fsdl"]
+[ext_resource type="Script" uid="uid://boyn636y65ypq" path="res://enemy/enemy_moving.gd" id="2_38tdy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fsdl"]
+
+[node name="Enemy_Moving" instance=ExtResource("1_2fsdl")]
+script = ExtResource("2_38tdy")
+
+[node name="Area2D" type="Area2D" parent="." index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0" groups=["Enemy"]]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_2fsdl")
