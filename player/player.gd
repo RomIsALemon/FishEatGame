@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 
-var speed = 150.0
+var basespeed = 150.0 # speed stat
+var speed = basespeed # current speed
 var mouse_position = null
 var level = 5 # true level
 var currentlevel = level # displayed level and temporary level
@@ -16,22 +17,24 @@ func _physics_process(delta):
 	var target_scale := Vector2(1 + currentlevel/3.5, 1 + currentlevel/3.5)
 	scale = scale.lerp(target_scale, scaleSpeed * delta)
 	# work on camera zooming out depending on fish scale
-	camera.zoom.x = ((camera.get_viewport().size.x/100) / scale.x)
-	camera.zoom.y = ((camera.get_viewport().size.y/54) / scale.y)
+	camera.zoom.x = ((camera.get_viewport().size.x/190) / scale.x)
+	camera.zoom.y = ((camera.get_viewport().size.y/108) / scale.y)
 	level_label.text = str(currentlevel)
 	mouse_position = get_global_mouse_position()
 	var direction = (mouse_position - position).normalized()
 	velocity = (direction * speed)
 	self.look_at(mouse_position)
-	if Input.is_action_just_pressed("ui_accept") and can_use_powerup and level >= 10:
+	if Input.is_action_just_pressed("Dash") and can_use_powerup and level >= 5:
 		dash()
+	if Input.is_action_just_pressed("Puff Up") and can_use_powerup and level >= 10:
+		puff_up()
 	if Input.is_action_just_pressed("Toggle Movement"):
 		toggleMove = not toggleMove
 	if toggleMove == true:
 		move_and_slide()
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		if collision.get_collider().get_class() == "CharacterBody2D":
+		if collision.get_collider().is_in_group("Enemy"):
 			_process_collision(collision.get_collider())
 			break
 
@@ -42,6 +45,8 @@ func _process_collision(enemy):
 		if can_use_powerup == true:
 			currentlevel = level
 		enemy.queue_free()
+	elif currentlevel == en_level:
+		print("Equal")
 	else:
 		get_tree().change_scene_to_file("res://gameover.tscn")
 		
@@ -51,14 +56,17 @@ func wait(seconds: float) -> void:
 	
 func dash():
 	can_use_powerup = false
+	speed = basespeed * 3
+	await wait(0.3)
+	speed = basespeed
+	can_use_powerup = true
+	
+func puff_up():
+	can_use_powerup = false
 	level_label.add_theme_color_override("font_color", Color(0,1,0))
-	print("Level: ", level)
 	currentlevel = int(level * 1.5)
 	level -= int(level/8)
-	speed = 400
-	await wait(1)
-	speed = 250
+	await wait(2)
 	currentlevel = level
 	level_label.add_theme_color_override("font_color", Color(1,1,1))
 	can_use_powerup = true
-	print("Level: ", level)
