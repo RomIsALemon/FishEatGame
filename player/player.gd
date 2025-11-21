@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 
-var basespeed = 150.0 # speed stat
+var basespeed = 100.0 # speed stat
 var speed = basespeed # current speed
 var mouse_position = null
-var level = 5 # true level
+var level = 2 # true level
 var currentlevel = level # displayed level and temporary level
 var can_use_powerup = true
 var scaleSpeed = 5
@@ -14,11 +14,10 @@ var toggleMove = true
 @onready var camera = get_node("Camera2D")
 
 func _physics_process(delta):
-	var target_scale := Vector2(1 + currentlevel/3.5, 1 + currentlevel/3.5)
+	var target_scale := Vector2(1 + currentlevel/3.1, 1 + currentlevel/3.1)
 	scale = scale.lerp(target_scale, scaleSpeed * delta)
-	# work on camera zooming out depending on fish scale
-	camera.zoom.x = ((camera.get_viewport().size.x/190) / scale.x)
-	camera.zoom.y = ((camera.get_viewport().size.y/108) / scale.y)
+	camera.zoom.x = ((camera.get_viewport().size.x/200) / scale.x)
+	camera.zoom.y = ((camera.get_viewport().size.y/115) / scale.y)
 	level_label.text = str(currentlevel)
 	mouse_position = get_global_mouse_position()
 	var direction = (mouse_position - position).normalized()
@@ -60,6 +59,7 @@ func dash():
 	await wait(0.3)
 	speed = basespeed
 	can_use_powerup = true
+	currentlevel = level
 	
 func puff_up():
 	can_use_powerup = false

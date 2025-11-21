@@ -3,7 +3,7 @@ extends CharacterBody2D
 var level = 2
 var scale_speed = 5
 var player_in_range = false
-var speed = 130.0
+var speed = 70.0
 
 @onready var level_label = get_node("Label")
 @onready var player = get_parent().get_node("Player")
@@ -13,7 +13,7 @@ func _ready():
 	$Area2D.body_exited.connect(_on_body_exited)
 
 func _physics_process(delta):
-	var target_scale := Vector2(1 + level/3.5, 1 + level/3.5)
+	var target_scale := Vector2(1 + level/3, 1 + level/3)
 	scale = scale.lerp(target_scale, scale_speed * delta)
 	level_label.text = str(level)
 	if(player_in_range):

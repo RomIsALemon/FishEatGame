@@ -9,15 +9,12 @@ extends Node2D
 func _ready():
 	enemies.append(get_node("Enemy"))
 	enemies.append(get_node("Enemy2"))
-	enemies.append(get_node("Enemy3"))
 	enemies.append(get_node("Enemy4"))
-	enemies.append(get_node("Enemy5"))
-	enemies[1].level = 4
-	enemies[2].level = 10
-	enemies[3].level = 1
-	enemies[4].level = 25
+	enemies[0].level = 1
+	enemies[1].level = 1
+	enemies[2].level = 6
 	enemies.append(get_node("Enemy_Moving"))
-	enemies[5].level = 20
+	enemies[3].level = 3
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
