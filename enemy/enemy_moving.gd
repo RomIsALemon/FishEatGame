@@ -13,12 +13,17 @@ func _ready():
 	$Area2D.body_exited.connect(_on_body_exited)
 
 func _physics_process(delta):
-	var target_scale := Vector2(1 + level/3, 1 + level/3)
+	var target_scale := Vector2(1 + level/2.9, 1 + level/2.9)
 	scale = scale.lerp(target_scale, scale_speed * delta)
 	level_label.text = str(level)
 	if(player_in_range):
 		look_at(player.global_position)
-		rotation += PI
+		if(velocity.x < 0):
+			$AnimatedSprite2D.flip_v = true
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_v = false
+			$AnimatedSprite2D.flip_h = true
 		if(player.currentlevel < level):
 			var direction = (player.global_position - global_position).normalized()
 			velocity = (direction * speed)
