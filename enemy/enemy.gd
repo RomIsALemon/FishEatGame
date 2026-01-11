@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var level = 2
+@export var level = 2
 var scale_speed = 5
 
 @onready var level_label = get_node("Label")

@@ -29,15 +29,19 @@ polygon = PackedVector2Array(72.02857, -7.1428566, 71.88572, -7.1428566, 71.0285
 
 [node name="Enemy" parent="." instance=ExtResource("3_eqedp")]
 position = Vector2(1047, 46)
+level = 1
 
 [node name="Enemy2" parent="." instance=ExtResource("3_eqedp")]
 position = Vector2(998, 204)
+level = 1
 
 [node name="Enemy4" parent="." instance=ExtResource("3_eqedp")]
 position = Vector2(1182, 148)
+level = 6
 
 [node name="Enemy_Moving" parent="." instance=ExtResource("4_aqk2v")]
 position = Vector2(867, 199)
+level = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

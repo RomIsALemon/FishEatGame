@@ -3,14 +3,18 @@ extends CharacterBody2D
 
 var basespeed = 100.0 # speed stat
 var speed = basespeed # current speed
-var mouse_position = null
+var mouse_position = null # mouse cursor position
 var level = 2 # true level
 var currentlevel = level # displayed level and temporary level
-var can_use_powerup = true
-var scaleSpeed = 5
-var toggleMove = true
-var speedModifier = 1
-var mousedeadzone = 10.0
+var can_use_powerup = true # Cooldown for abilities like dash and puff up
+var scaleSpeed = 5 # speed for scale lerp
+var toggleMove = true # used to stop character from moving
+var speedModifier = 1 # changed when dashing
+var mousedeadzone = 10.0 # when below this deadzone, player stops
+var hasShipWorms = false # used for breaking wooden doors/obstacles
+var puffUpHeld = false # used to see if the puffup input is held in order to cancel it
+var maxEnergy = 10
+var energy = maxEnergy
 
 @onready var level_label = get_node("Label")
 @onready var camera = get_node("Camera2D")
@@ -32,7 +36,6 @@ func _physics_process(delta):
 	var direction = (mouse_position - position).normalized()
 	velocity = (direction * (speed * speedModifier))
 	self.look_at(mouse_position)
-	print(mousediff)
 	if(direction.x < 0):
 		$AnimatedSprite2D.flip_v = true
 	else:
@@ -40,9 +43,12 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Dash") and can_use_powerup and level >= 5:
 		dash()
 	if Input.is_action_just_pressed("Puff Up") and can_use_powerup and level >= 10:
+		puffUpHeld = true
 		puff_up()
-	if Input.is_action_just_pressed("Toggle Movement"):
-		toggleMove = not toggleMove
+	if Input.is_action_just_released("Puff Up"):
+		puffUpHeld = false
+	#if Input.is_action_just_pressed("Toggle Movement"):
+		#toggleMove = not toggleMove
 	if toggleMove == true:
 		move_and_slide()
 	for i in get_slide_collision_count():
@@ -64,10 +70,10 @@ func _process_collision(enemy):
 		get_tree().change_scene_to_file("res://gameover.tscn")
 		
 		
-func wait(seconds: float) -> void:
+func wait(seconds: float) -> void: # timers for cooldown and abilities
 	await get_tree().create_timer(seconds).timeout
 	
-func dash():
+func dash(): # quick boost of speed for a split second
 	can_use_powerup = false
 	speedModifier = 3
 	await wait(0.3)
@@ -75,12 +81,20 @@ func dash():
 	can_use_powerup = true
 	currentlevel = level
 	
-func puff_up():
+func puff_up(): #Temporarily puffs up fish to bigger size so you won't get chased
+	#will change to make it spend energy instead of level later
 	can_use_powerup = false
 	level_label.add_theme_color_override("font_color", Color(0,1,0))
 	currentlevel = int(level * 1.5)
 	level -= int(level/8)
-	await wait(2)
-	currentlevel = level
+	#every 1.5 seconds, fish's level decreases until it's back to its true level
+	while(currentlevel > level):
+		await wait(0.1)
+		if(puffUpHeld):
+			await wait(1)
+			currentlevel -= 1
+		else:
+			currentlevel = level
+			break
 	level_label.add_theme_color_override("font_color", Color(1,1,1))
 	can_use_powerup = true

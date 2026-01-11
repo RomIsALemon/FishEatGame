@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var level = 2
+@export var level = 2
 var scale_speed = 5
 var player_in_range = false
 var speed = 70.0
