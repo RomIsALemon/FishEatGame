@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca5yka8t45xqs"]
+[gd_scene load_steps=8 format=3 uid="uid://ca5yka8t45xqs"]
 
 [ext_resource type="Script" uid="uid://ctwylbq1qucg" path="res://world.gd" id="1_kq4et"]
 [ext_resource type="PackedScene" uid="uid://dqeyrt7b8tjwi" path="res://player/player.tscn" id="2_tkp1m"]
 [ext_resource type="PackedScene" uid="uid://g4qrq6oy2q2p" path="res://enemy/enemy.tscn" id="3_eqedp"]
 [ext_resource type="PackedScene" uid="uid://ncklgdw4cpq6" path="res://enemy/enemy_moving.tscn" id="4_aqk2v"]
 [ext_resource type="Texture2D" uid="uid://4ebbpbsqbgyp" path="res://FishMap1.png" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://csk8ebew5e0ct" path="res://texture_progress_bar.tscn" id="5_dwbse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_036b0"]
 size = Vector2(27, 25)
@@ -61,6 +62,9 @@ offset_right = 122.0
 offset_bottom = 61.0
 text = "True Level: "
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" parent="CanvasLayer" instance=ExtResource("5_dwbse")]
+scale = Vector2(5.42, 5.42)
 
 [node name="FishMap1" type="Sprite2D" parent="."]
 position = Vector2(717.7999, 227)

@@ -76,25 +76,22 @@ func wait(seconds: float) -> void: # timers for cooldown and abilities
 func dash(): # quick boost of speed for a split second
 	can_use_powerup = false
 	speedModifier = 3
+	energy -= 1
 	await wait(0.3)
 	speedModifier = 1
 	can_use_powerup = true
 	currentlevel = level
 	
 func puff_up(): #Temporarily puffs up fish to bigger size so you won't get chased
-	#will change to make it spend energy instead of level later
 	can_use_powerup = false
 	level_label.add_theme_color_override("font_color", Color(0,1,0))
 	currentlevel = int(level * 1.5)
 	level -= int(level/8)
-	#every 1.5 seconds, fish's level decreases until it's back to its true level
-	while(currentlevel > level):
-		await wait(0.1)
-		if(puffUpHeld):
-			await wait(1)
-			currentlevel -= 1
-		else:
-			currentlevel = level
-			break
+	#every 1.5 seconds, fish's energy decreases
+	#to add: circular progress bar for 1.5 second timer instead of await wait, and attach to player
+	while(puffUpHeld && energy > 0):
+		await wait(1.5)
+		energy -= 1
+	currentlevel = level
 	level_label.add_theme_color_override("font_color", Color(1,1,1))
 	can_use_powerup = true
