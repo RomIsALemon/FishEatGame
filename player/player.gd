@@ -40,9 +40,9 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_v = true
 	else:
 		$AnimatedSprite2D.flip_v = false
-	if Input.is_action_just_pressed("Dash") and can_use_powerup and level >= 5:
+	if Input.is_action_just_pressed("Dash") and can_use_powerup and level >= 5 and energy > 0:
 		dash()
-	if Input.is_action_just_pressed("Puff Up") and can_use_powerup and level >= 10:
+	if Input.is_action_just_pressed("Puff Up") and can_use_powerup and level >= 10 and energy > 0:
 		puffUpHeld = true
 		puff_up()
 	if Input.is_action_just_released("Puff Up"):
@@ -86,7 +86,7 @@ func puff_up(): #Temporarily puffs up fish to bigger size so you won't get chase
 	can_use_powerup = false
 	level_label.add_theme_color_override("font_color", Color(0,1,0))
 	currentlevel = int(level * 1.5)
-	level -= int(level/8)
+	#level -= int(level/8)
 	#every 1.5 seconds, fish's energy decreases
 	#to add: circular progress bar for 1.5 second timer instead of await wait, and attach to player
 	while(puffUpHeld && energy > 0):

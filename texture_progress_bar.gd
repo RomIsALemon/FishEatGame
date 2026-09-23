@@ -4,4 +4,3 @@ extends TextureProgressBar
 	
 func _process(delta: float) -> void:
 	value = (float(player.energy)/float(player.maxEnergy)) * 100
-	print(value)

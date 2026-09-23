@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqeyrt7b8tjwi"]
+[gd_scene format=3 uid="uid://dqeyrt7b8tjwi"]
 
 [ext_resource type="Script" uid="uid://cj118garpke8b" path="res://player/player.gd" id="1_0xtq3"]
 [ext_resource type="Texture2D" uid="uid://bgxs8rg3kboek" path="res://player/fish.png" id="1_80ro8"]
@@ -18,22 +18,22 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=732793838 groups=["Player"]]
 script = ExtResource("1_0xtq3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=676138746]
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_ax6i2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=24907291]
 sprite_frames = SubResource("SpriteFrames_k21ho")
 animation = &"Idle"
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=941669167]
 zoom = Vector2(2.22, 2.22)
 position_smoothing_speed = 10.0
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=893688333]
 offset_left = -7.0
 offset_top = -16.0
 offset_right = 10.0
