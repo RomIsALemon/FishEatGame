@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b6i83d3eao3ck"]
+
+[ext_resource type="Script" uid="uid://dkik1mt6g76d4" path="res://NPC/fish_npc.gd" id="1_crbkg"]
+[ext_resource type="Texture2D" uid="uid://btqgnw22ucqjh" path="res://enemy/fish2.png" id="1_k0yfj"]
+[ext_resource type="Texture2D" uid="uid://bcdum5tfc3q2r" path="res://NPC/Sprite-0001.png" id="2_xxb1e"]
+[ext_resource type="FontFile" uid="uid://c2qy3npyfq3p8" path="res://TeenyTinyPixls-o2zo.ttf" id="4_b17h5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(20, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 18.027756
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=784663615]
+script = ExtResource("1_crbkg")
+
+[node name="Fish2" type="Sprite2D" parent="." unique_id=65669388]
+texture = ExtResource("1_k0yfj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=552603681]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Speech Bubble" type="Sprite2D" parent="." unique_id=1120420046]
+position = Vector2(-12, -6.999999)
+scale = Vector2(0.59, 0.59)
+texture = ExtResource("2_xxb1e")
+
+[node name="Label" type="Label" parent="." unique_id=1780447575]
+offset_left = -5.0
+offset_top = -17.0
+offset_right = 35.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource("4_b17h5")
+theme_override_font_sizes/font_size = 10
+
+[node name="DialogueArea" type="Area2D" parent="." unique_id=227127655]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueArea" unique_id=335589694]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="DialogueArea" to="." method="_on_dialogue_area_body_entered"]
+[connection signal="body_exited" from="DialogueArea" to="." method="_on_dialogue_area_body_exited"]
